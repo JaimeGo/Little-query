@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="main-container">
+    <div class="container">
+      {% for nombre, db, description, query in results %}
+      {% set algomuysucio = 'onClickQuery("{}","{}")'.format(db, query) %}
+
+      <div class="query-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h6>{{db}} - {{nombre}}</h6>
+        </div>
+        <div class="mdl-card__supporting-text mdl-card--border">
+          <div class="query-card-content">
+            <span>
+              {{description}}
+            </span>
+            <button
+              class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect arrow"
+            >
+              <i class="material-icons">keyboard_arrow_up</i>
+            </button>
+          </div>
+
+          <div class="query-card-code">
+            <span>{{query}}</span>
+          </div>
+          <form action="." method="POST">
+            {% if db == "numero" %}
+            <input type="text" name="Input" placeholder="Numero">
+            <input type="text" name="Input2" placeholder="Entero">
+            {% elif db == "fecha" %}
+            <input type="text" name="Input" placeholder="Fecha">
+            {% elif db == "palabra" %}
+            <input type="text" name="Input" placeholder="Palabra">
+            {% endif %}
+            
+            <input type="hidden" name="tipo", value = {{db}}>
+
+            <input type="submit" name="my-form" value="Send">
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
